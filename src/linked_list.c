@@ -125,8 +125,15 @@ uint8_t removeAtPosition(LINKED_LIST *list, size_t position)
             list->tail = prevPtr;
         }
         // relink adjacent pointers
-        prevPtr->next = nextPtr;
-        nextPtr->prev = prevPtr;
+        if (prevPtr)
+        {
+            prevPtr->next = nextPtr;
+        }
+        if (nextPtr)
+        {
+            nextPtr->prev = prevPtr;
+        }
+
         // cleanup the entry and frees allocated memory
         curPtr->cleanup(curPtr);
         free(curPtr);
@@ -155,8 +162,14 @@ uint8_t removeAtValue(LINKED_LIST *list, void *value)
             list->tail = prevPtr;
         }
         // relink adjacent points
-        prevPtr->next = nextPtr;
-        nextPtr->prev = prevPtr;
+        if (prevPtr)
+        {
+            prevPtr->next = nextPtr;
+        }
+        if (nextPtr)
+        {
+            nextPtr->prev = prevPtr;
+        }
 
         // cleanup data and node
         curPtr->cleanup(curPtr);
