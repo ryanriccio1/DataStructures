@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 #include <stdint.h>
 #include "stack.h"
 #include "linked_list.h"
@@ -10,7 +9,7 @@ uint8_t push(STACK *stack, void *data, size_t dataSize)
 }
 void *pop(STACK *stack)
 {
-    void *data = stack->list->getByIndex(stack->list, 0);
+    void *data = stack->peekStack(stack);
 
     if (stack->list->removeAtPosition(stack->list, 0) == (uint8_t)EXIT_SUCCESS)
     {
@@ -19,12 +18,12 @@ void *pop(STACK *stack)
     return NULL;
 }
 
-void *peek(STACK *stack)
+void *peekStack(STACK *stack)
 {
     return stack->list->getByIndex(stack->list, 0);
 }
 
-uint8_t clean(STACK *stack)
+uint8_t cleanStack(STACK *stack)
 {
     stack->list->clear(stack->list);
     free(stack->list);
@@ -38,9 +37,9 @@ uint8_t setupStack(STACK *stack)
 
     stack->push = push;
     stack->pop = pop;
-    stack->peek = peek;
+    stack->peekStack = peekStack;
 
-    stack->clean = clean;
+    stack->cleanStack = cleanStack;
 
     return EXIT_SUCCESS;
 }

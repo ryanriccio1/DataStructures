@@ -32,7 +32,7 @@ TEST(stack, push_withValidData_returnsSuccess)
     EXPECT_EQ(result, (uint8_t)EXIT_SUCCESS);
     EXPECT_EQ(500, *(int *)stack->list->getByIndex(stack->list, 0));
 
-    stack->clean(stack);
+    stack->cleanStack(stack);
     free(stack);
 }
 
@@ -48,17 +48,17 @@ TEST(stack, pop_withValidData_returnsData)
     EXPECT_EQ(data2, 15);
     EXPECT_EQ(data3, 10);
 
-    stack->clean(stack);
+    stack->cleanStack(stack);
     free(stack);
 }
 
-TEST(stack, peek_withValidData_returnsData)
+TEST(stack, peekStack_withValidData_returnsData)
 {
     STACK *stack = setupStackTest();
 
-    int data = *(int *)stack->peek(stack);
+    int data = *(int *)stack->peekStack(stack);
     EXPECT_EQ(data, 20);
 
-    stack->clean(stack);
+    stack->cleanStack(stack);
     free(stack);
 }

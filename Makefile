@@ -16,18 +16,23 @@ bin/obj/stack.o: src/stack.c
 	mkdir -p bin/obj
 	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/stack.c -o bin/obj/stack.o
 	
+bin/obj/queue.o: src/queue.c
+	mkdir -p bin/obj
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/queue.c -o bin/obj/queue.o
+
 bin/obj/console_util.o: src/console_util.c
 	mkdir -p bin/obj
 	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/console_util.c -o bin/obj/console_util.o
 
 .PHONY: tests
-tests: bin/gtest bin/obj/console_util.o test/console_util_test.cpp bin/obj/linked_list.o bin/obj/node.o bin/obj/stack.o test/linked_list_test.cpp test/stack_test.cpp
+tests: bin/gtest bin/obj/console_util.o test/console_util_test.cpp bin/obj/linked_list.o bin/obj/node.o bin/obj/stack.o bin/obj/queue.o test/linked_list_test.cpp test/stack_test.cpp
 	g++ -Wall -Wextra -std=c++17 -pthread -g \
     -I"test/googletest/googletest/include" -I"test/googletest/googlemock/include" \
 	-I"include" \
 	bin/obj/console_util.o test/console_util_test.cpp \
 	bin/obj/node.o bin/obj/linked_list.o test/linked_list_test.cpp \
 	bin/obj/stack.o test/stack_test.cpp \
+	bin/obj/queue.o test/queue_test.cpp \
     bin/gtest/libgtest.a bin/gtest/libgtest_main.a \
     -o bin/run_tests.exe
 

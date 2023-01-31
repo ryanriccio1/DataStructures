@@ -13,9 +13,9 @@ typedef struct Stack
 
     uint8_t (*push)(struct Stack *stack, void *data, size_t dataSize);
     void *(*pop)(struct Stack *stack);
-    void *(*peek)(struct Stack *stack);
+    void *(*peekStack)(struct Stack *stack);
 
-    uint8_t (*clean)(struct Stack *stack);
+    uint8_t (*cleanStack)(struct Stack *stack);
 } STACK;
 
 /**
@@ -42,7 +42,7 @@ void *pop(STACK *stack);
  * @param stack Stack to perform operation on
  * @return void*
  */
-void *peek(STACK *stack);
+void *peekStack(STACK *stack);
 
 /**
  * @brief Clean all data inside stack
@@ -50,7 +50,7 @@ void *peek(STACK *stack);
  * @param stack Stack to perform operation on
  * @return uint8_t
  */
-uint8_t clean(STACK *stack);
+uint8_t cleanStack(STACK *stack);
 
 /**
  * @brief Setup and initialize all data needed for stack
