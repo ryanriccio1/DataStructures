@@ -23,6 +23,7 @@ STACK *setupStackTest()
 
 TEST(stack, push_withValidData_returnsSuccess)
 {
+    // test Push function of Stack
     STACK *stack = setupStackTest();
 
     int *data = (int *)malloc(sizeof(int));
@@ -38,6 +39,7 @@ TEST(stack, push_withValidData_returnsSuccess)
 
 TEST(stack, pop_withValidData_returnsData)
 {
+    // testing Pop function of Stack
     STACK *stack = setupStackTest();
 
     int data1 = *(int *)stack->pop(stack);
@@ -54,6 +56,7 @@ TEST(stack, pop_withValidData_returnsData)
 
 TEST(stack, peekStack_withValidData_returnsData)
 {
+    // testing Peek Function of Stack
     STACK *stack = setupStackTest();
 
     int data = *(int *)stack->peekStack(stack);

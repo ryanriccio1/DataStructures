@@ -5,13 +5,16 @@
 
 uint8_t enqueue(QUEUE *queue, void *data, size_t dataSize)
 {
+    // add to end of queue
     return queue->list->append(queue->list, data, dataSize);
 }
 void *dequeue(QUEUE *queue)
 {
+    // get the item on the top of the queue
     void *data = queue->peekQueue(queue);
 
-    if (queue->list->removeAtPosition(queue->list, 0) == (uint8_t)EXIT_SUCCESS)
+    // try to remove it and return the data we removed
+    if (queue->list->removeAtPosition(queue->list, 0, KeepAllocated) == (uint8_t)EXIT_SUCCESS)
     {
         return data;
     }
@@ -19,11 +22,13 @@ void *dequeue(QUEUE *queue)
 }
 void *peekQueue(QUEUE *queue)
 {
+    // get the item on the top of the queue without removing it
     return queue->list->getByIndex(queue->list, 0);
 }
 
 uint8_t cleanQueue(QUEUE *queue)
 {
+    // remove all the items in the queue
     queue->list->clear(queue->list);
     free(queue->list);
     return EXIT_SUCCESS;

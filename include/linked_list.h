@@ -3,6 +3,19 @@
 #include <stdint.h>
 #include "node.h"
 
+typedef enum DeallocateFlag
+{
+    KeepAllocated,
+    Deallocate
+} DeallocateFlag;
+
+typedef enum MergeSortComparison
+{
+    PointerCompare,
+    ValueCompare,
+    SizeCompare
+} MergeSortComparison;
+
 /**
  * @brief Linked list implementation
  *
@@ -22,8 +35,8 @@ typedef struct LinkedList
 
     uint8_t (*append)(struct LinkedList *list, void *newData, size_t dataSize);
 
-    uint8_t (*removeAtPosition)(struct LinkedList *list, size_t position);
-    uint8_t (*removeAtValue)(struct LinkedList *list, void *value);
+    uint8_t (*removeAtPosition)(struct LinkedList *list, size_t position, DeallocateFlag deallocatePointer);
+    uint8_t (*removeAtValue)(struct LinkedList *list, void *value, DeallocateFlag deallocatePointer);
 
     uint8_t (*clear)(struct LinkedList *list);
     uint8_t (*contains)(struct LinkedList *list, void *data);
@@ -36,6 +49,8 @@ typedef struct LinkedList
 
     void (*printString)(struct LinkedList *list);
     void (*printInt)(struct LinkedList *list);
+    void (*printInt64)(struct LinkedList *list);
+    void (*printUint64)(struct LinkedList *list);
     void (*printDouble)(struct LinkedList *list);
     void (*printPointer)(struct LinkedList *list);
 
@@ -44,13 +59,6 @@ typedef struct LinkedList
     void (*sortBySize)(struct LinkedList *list);
 
 } LINKED_LIST;
-
-typedef enum MergeSortComparison
-{
-    PointerCompare,
-    ValueCompare,
-    SizeCompare
-} MergeSortComparison;
 
 /**
  * @brief Set the Length object
@@ -106,17 +114,19 @@ uint8_t append(LINKED_LIST *list, void *newData, size_t dataSize);
  *
  * @param list List to perform operation on
  * @param position Position of item to remove
+ * @param deallocatePointer Set flag to 1 to deallocate
  * @return uint8_t
  */
-uint8_t removeAtPosition(LINKED_LIST *list, size_t position);
+uint8_t removeAtPosition(LINKED_LIST *list, size_t position, DeallocateFlag deallocatePointer);
 /**
  * @brief Search for first occurance of a pointer to remove
  *
  * @param list List to perform operation on
  * @param value Will search to see if pointers are the same, if we can find a pointer in our list, remove it
+ * @param deallocatePointer Set flag to 1 to deallocate
  * @return uint8_t
  */
-uint8_t removeAtValue(LINKED_LIST *list, void *value);
+uint8_t removeAtValue(LINKED_LIST *list, void *value, DeallocateFlag deallocatePointer);
 
 /**
  * @brief Free all data and nodes in list
@@ -189,6 +199,18 @@ void printString(LINKED_LIST *list);
  * @param list List to perform operation on
  */
 void printInt(LINKED_LIST *list);
+/**
+ * @brief Print list data formatted as int64_t
+ *
+ * @param list List to perform operation on
+ */
+void printInt64(LINKED_LIST *list);
+/**
+ * @brief Print list data formatted as uint64_t
+ *
+ * @param list List to perform operation on
+ */
+void printUint64(LINKED_LIST *list);
 /**
  * @brief Print list data formatted as double
  *

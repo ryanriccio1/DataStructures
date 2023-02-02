@@ -105,7 +105,7 @@ uint8_t append(LINKED_LIST *list, void *newData, size_t dataSize)
     return insert(list, list->length, newData, dataSize);
 }
 
-uint8_t removeAtPosition(LINKED_LIST *list, size_t position)
+uint8_t removeAtPosition(LINKED_LIST *list, size_t position, DeallocateFlag deallocatePointer)
 {
     // check to make sure position is within the length of the list
     uint8_t ableToRemove = position <= list->length;
@@ -135,7 +135,10 @@ uint8_t removeAtPosition(LINKED_LIST *list, size_t position)
         }
 
         // cleanup the entry and frees allocated memory
-        curPtr->cleanup(curPtr);
+        if (deallocatePointer == Deallocate)
+        {
+            curPtr->cleanup(curPtr);
+        }
         free(curPtr);
 
         list->setLength(list, list->length - 1);
@@ -143,7 +146,7 @@ uint8_t removeAtPosition(LINKED_LIST *list, size_t position)
 
     return !ableToRemove;
 }
-uint8_t removeAtValue(LINKED_LIST *list, void *value)
+uint8_t removeAtValue(LINKED_LIST *list, void *value, DeallocateFlag deallocatePointer)
 {
     NODE *curPtr = NULL;
     // search to see if our pointers match
@@ -172,7 +175,10 @@ uint8_t removeAtValue(LINKED_LIST *list, void *value)
         }
 
         // cleanup data and node
-        curPtr->cleanup(curPtr);
+        if (deallocatePointer == Deallocate)
+        {
+            curPtr->cleanup(curPtr);
+        }
         free(curPtr);
 
         list->setLength(list, list->length - 1);
@@ -286,7 +292,23 @@ void printInt(LINKED_LIST *list)
     for (size_t idx = 0; idx < list->length; idx++)
     {
         NODE *node = getNodeByIndex(list, idx);
+        printf("[%lld]:\t%d\n", idx, *(int32_t *)node->data);
+    }
+}
+void printInt64(LINKED_LIST *list)
+{ // print data as an int64_t
+    for (size_t idx = 0; idx < list->length; idx++)
+    {
+        NODE *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%lld\n", idx, *(int64_t *)node->data);
+    }
+}
+void printUint64(LINKED_LIST *list)
+{ // print data as an uint64_t
+    for (size_t idx = 0; idx < list->length; idx++)
+    {
+        NODE *node = getNodeByIndex(list, idx);
+        printf("[%lld]:\t%lld\n", idx, *(uint64_t *)node->data);
     }
 }
 void printDouble(LINKED_LIST *list)
@@ -422,6 +444,8 @@ uint8_t setupLinkedList(LINKED_LIST *list)
 
     list->printString = printString;
     list->printInt = printInt;
+    list->printInt64 = printInt64;
+    list->printUint64 = printUint64;
     list->printDouble = printDouble;
     list->printPointer = printPointer;
 

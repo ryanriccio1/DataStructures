@@ -1,7 +1,9 @@
 
-all: src/driver.c bin/obj/linked_list.o bin/obj/node.o bin/obj/console_util.o
+all: src/driver.c bin/obj/linked_list.o bin/obj/node.o bin/obj/stack.o bin/obj/queue.o bin/obj/console_util.o
 	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" \
-	bin/obj/linked_list.o bin/obj/node.o bin/obj/console_util.o \
+	bin/obj/linked_list.o bin/obj/node.o \
+	bin/obj/stack.o bin/obj/queue.o \
+	bin/obj/console_util.o \
 	-g src/driver.c -o bin/test.exe
 
 bin/obj/linked_list.o: src/linked_list.c

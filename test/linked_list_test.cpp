@@ -144,7 +144,7 @@ TEST(linked_list, removeAtPosition_atValidPosition_returnsSuccess)
 {
     LINKED_LIST *list = setupList();
 
-    uint8_t result = list->removeAtPosition(list, 3);
+    uint8_t result = list->removeAtPosition(list, 3, Deallocate);
 
     EXPECT_EQ(result, (uint8_t)EXIT_SUCCESS);
     EXPECT_EQ(list->length, (size_t)4);
@@ -157,7 +157,7 @@ TEST(linked_list, removeAtPosition_atInvalidPosition_returnsFailure)
 {
     LINKED_LIST *list = setupList();
 
-    uint8_t result = list->removeAtPosition(list, 10);
+    uint8_t result = list->removeAtPosition(list, 10, Deallocate);
 
     EXPECT_EQ(result, (uint8_t)EXIT_FAILURE);
     EXPECT_EQ(list->length, (size_t)5);
@@ -172,7 +172,7 @@ TEST(linked_list, removeAtValue_withExistingValue_returnsSuccess)
 
     void *data = list->getByIndex(list, 3);
 
-    uint8_t result = list->removeAtValue(list, data);
+    uint8_t result = list->removeAtValue(list, data, Deallocate);
 
     EXPECT_EQ(result, (uint8_t)EXIT_SUCCESS);
     EXPECT_EQ(list->length, (size_t)4);
@@ -187,7 +187,7 @@ TEST(linked_list, removeAtValue_withNonExistingValue_returnsFailure)
 
     void *data = list->getByIndex(list, 10);
 
-    uint8_t result = list->removeAtValue(list, data);
+    uint8_t result = list->removeAtValue(list, data, Deallocate);
 
     EXPECT_EQ(result, (uint8_t)EXIT_FAILURE);
     EXPECT_EQ(list->length, (size_t)5);
