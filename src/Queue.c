@@ -1,14 +1,14 @@
 #include <stdlib.h>
 #include <stdint.h>
-#include "queue.h"
-#include "linked_list.h"
+#include "Queue.h"
+#include "LinkedList.h"
 
-uint8_t enqueue(QUEUE *queue, void *data, size_t dataSize)
+uint8_t enqueue(Queue *queue, void *data, size_t dataSize)
 {
     // add to end of queue
     return queue->list->append(queue->list, data, dataSize);
 }
-void *dequeue(QUEUE *queue)
+void *dequeue(Queue *queue)
 {
     // get the item on the top of the queue
     void *data = queue->peekQueue(queue);
@@ -20,13 +20,13 @@ void *dequeue(QUEUE *queue)
     }
     return NULL;
 }
-void *peekQueue(QUEUE *queue)
+void *peekQueue(Queue *queue)
 {
     // get the item on the top of the queue without removing it
     return queue->list->getByIndex(queue->list, 0);
 }
 
-uint8_t cleanQueue(QUEUE *queue)
+uint8_t cleanQueue(Queue *queue)
 {
     // remove all the items in the queue
     queue->list->clear(queue->list);
@@ -34,9 +34,9 @@ uint8_t cleanQueue(QUEUE *queue)
     return EXIT_SUCCESS;
 }
 
-uint8_t setupQueue(QUEUE *queue)
+uint8_t setupQueue(Queue *queue)
 {
-    queue->list = (LINKED_LIST *)malloc(sizeof(LINKED_LIST));
+    queue->list = (LinkedList *)malloc(sizeof(LinkedList));
     setupLinkedList(queue->list);
 
     queue->enqueue = enqueue;

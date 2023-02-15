@@ -1,6 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
-#include "linked_list.h"
+#include "LinkedList.h"
 #include <stdint.h>
 
 /**
@@ -9,14 +9,14 @@
  */
 typedef struct Stack
 {
-    LINKED_LIST *list;
+    LinkedList *list;
 
     uint8_t (*push)(struct Stack *stack, void *data, size_t dataSize);
     void *(*pop)(struct Stack *stack);
     void *(*peekStack)(struct Stack *stack);
 
     uint8_t (*cleanStack)(struct Stack *stack);
-} STACK;
+} Stack;
 
 /**
  * @brief Put data onto stack
@@ -26,7 +26,7 @@ typedef struct Stack
  * @param dataSize Size of data being put on stack
  * @return uint8_t
  */
-uint8_t push(STACK *stack, void *data, size_t dataSize);
+uint8_t push(Stack *stack, void *data, size_t dataSize);
 
 /**
  * @brief Get the data from the stack and remove it
@@ -34,7 +34,7 @@ uint8_t push(STACK *stack, void *data, size_t dataSize);
  * @param stack Stack to perform operation on
  * @return void*
  */
-void *pop(STACK *stack);
+void *pop(Stack *stack);
 
 /**
  * @brief Get the data from the top of the stack without removing it
@@ -42,7 +42,7 @@ void *pop(STACK *stack);
  * @param stack Stack to perform operation on
  * @return void*
  */
-void *peekStack(STACK *stack);
+void *peekStack(Stack *stack);
 
 /**
  * @brief Clean all data inside stack
@@ -50,7 +50,7 @@ void *peekStack(STACK *stack);
  * @param stack Stack to perform operation on
  * @return uint8_t
  */
-uint8_t cleanStack(STACK *stack);
+uint8_t cleanStack(Stack *stack);
 
 /**
  * @brief Setup and initialize all data needed for stack
@@ -58,6 +58,6 @@ uint8_t cleanStack(STACK *stack);
  * @param stack Stack to perform operation on
  * @return uint8_t
  */
-uint8_t setupStack(STACK *stack);
+uint8_t setupStack(Stack *stack);
 
 #endif

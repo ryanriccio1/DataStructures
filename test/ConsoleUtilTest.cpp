@@ -3,7 +3,7 @@
 #include <cstdint>
 extern "C"
 {
-#include "console_util.h"
+#include "ConsoleUtil.h"
 }
 
 TEST(console_util, string_to_long_withValidData_returnsSuccess)

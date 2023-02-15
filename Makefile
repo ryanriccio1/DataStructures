@@ -1,40 +1,40 @@
 
-all: src/driver.c bin/obj/linked_list.o bin/obj/node.o bin/obj/stack.o bin/obj/queue.o bin/obj/console_util.o
+all: src/Driver.c bin/obj/LinkedList.o bin/obj/Node.o bin/obj/Stack.o bin/obj/Queue.o bin/obj/ConsoleUtil.o
 	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" \
-	bin/obj/linked_list.o bin/obj/node.o \
-	bin/obj/stack.o bin/obj/queue.o \
-	bin/obj/console_util.o \
-	-g src/driver.c -o bin/test.exe
+	bin/obj/LinkedList.o bin/obj/Node.o \
+	bin/obj/Stack.o bin/obj/Queue.o \
+	bin/obj/ConsoleUtil.o \
+	-g src/Driver.c -o bin/test.exe
 
-bin/obj/linked_list.o: src/linked_list.c
+bin/obj/LinkedList.o: src/LinkedList.c
 	mkdir -p bin/obj
-	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/linked_list.c -o bin/obj/linked_list.o
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/LinkedList.c -o bin/obj/LinkedList.o
 
-bin/obj/node.o: src/node.c
+bin/obj/Node.o: src/Node.c
 	mkdir -p bin/obj
-	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/node.c -o bin/obj/node.o
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/Node.c -o bin/obj/Node.o
 
-bin/obj/stack.o: src/stack.c
+bin/obj/Stack.o: src/Stack.c
 	mkdir -p bin/obj
-	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/stack.c -o bin/obj/stack.o
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/Stack.c -o bin/obj/Stack.o
 	
-bin/obj/queue.o: src/queue.c
+bin/obj/Queue.o: src/Queue.c
 	mkdir -p bin/obj
-	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/queue.c -o bin/obj/queue.o
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/Queue.c -o bin/obj/Queue.o
 
-bin/obj/console_util.o: src/console_util.c
+bin/obj/ConsoleUtil.o: src/ConsoleUtil.c
 	mkdir -p bin/obj
-	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/console_util.c -o bin/obj/console_util.o
+	gcc -Wall -Wextra -pedantic -std=c17 -O3 -I"include" -g -c src/ConsoleUtil.c -o bin/obj/ConsoleUtil.o
 
 .PHONY: tests
-tests: bin/gtest bin/obj/console_util.o test/console_util_test.cpp bin/obj/linked_list.o bin/obj/node.o bin/obj/stack.o bin/obj/queue.o test/linked_list_test.cpp test/stack_test.cpp
+tests: bin/gtest bin/obj/ConsoleUtil.o test/ConsoleUtilTest.cpp bin/obj/LinkedList.o bin/obj/Node.o bin/obj/Stack.o bin/obj/Queue.o test/LinkedListTest.cpp test/StackTest.cpp
 	g++ -Wall -Wextra -std=c++17 -pthread -g \
     -I"test/googletest/googletest/include" -I"test/googletest/googlemock/include" \
 	-I"include" \
-	bin/obj/console_util.o test/console_util_test.cpp \
-	bin/obj/node.o bin/obj/linked_list.o test/linked_list_test.cpp \
-	bin/obj/stack.o test/stack_test.cpp \
-	bin/obj/queue.o test/queue_test.cpp \
+	bin/obj/ConsoleUtil.o test/ConsoleUtilTest.cpp \
+	bin/obj/Node.o bin/obj/LinkedList.o test/LinkedListTest.cpp \
+	bin/obj/Stack.o test/StackTest.cpp \
+	bin/obj/Queue.o test/QueueTest.cpp \
     bin/gtest/libgtest.a bin/gtest/libgtest_main.a \
     -o bin/run_tests.exe
 

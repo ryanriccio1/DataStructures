@@ -3,12 +3,12 @@
 #include <cstdint>
 extern "C"
 {
-#include "queue.h"
+#include "Queue.h"
 }
 
-QUEUE *setupQueueTest()
+Queue *setupQueueTest()
 {
-    QUEUE *queue = (QUEUE *)malloc(sizeof(QUEUE));
+    Queue *queue = (Queue *)malloc(sizeof(Queue));
     setupQueue(queue);
 
     for (size_t idx = 0; idx < 5; idx++)
@@ -23,7 +23,7 @@ QUEUE *setupQueueTest()
 
 TEST(queue, enqueue_withValidData_returnsSuccess)
 {
-    QUEUE *queue = setupQueueTest();
+    Queue *queue = setupQueueTest();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -38,7 +38,7 @@ TEST(queue, enqueue_withValidData_returnsSuccess)
 
 TEST(queue, dequeue_withValidData_returnsData)
 {
-    QUEUE *queue = setupQueueTest();
+    Queue *queue = setupQueueTest();
 
     int data1 = *(int *)queue->dequeue(queue);
     int data2 = *(int *)queue->dequeue(queue);
@@ -54,7 +54,7 @@ TEST(queue, dequeue_withValidData_returnsData)
 
 TEST(queue, peekStack_withValidData_returnsData)
 {
-    QUEUE *queue = setupQueueTest();
+    Queue *queue = setupQueueTest();
 
     int data = *(int *)queue->peekQueue(queue);
     EXPECT_EQ(data, 0);

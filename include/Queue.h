@@ -1,6 +1,6 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "linked_list.h"
+#include "LinkedList.h"
 #include <stdint.h>
 
 /**
@@ -9,14 +9,14 @@
  */
 typedef struct Queue
 {
-    LINKED_LIST *list;
+    LinkedList *list;
 
     uint8_t (*enqueue)(struct Queue *queue, void *data, size_t dataSize);
     void *(*dequeue)(struct Queue *queue);
     void *(*peekQueue)(struct Queue *queue);
 
     uint8_t (*cleanQueue)(struct Queue *queue);
-} QUEUE;
+} Queue;
 
 /**
  * @brief Add data to the queue
@@ -26,7 +26,7 @@ typedef struct Queue
  * @param dataSize Size of data being pushed on queue
  * @return uint8_t
  */
-uint8_t enqueue(QUEUE *queue, void *data, size_t dataSize);
+uint8_t enqueue(Queue *queue, void *data, size_t dataSize);
 
 /**
  * @brief Remove data from the queue and get the data
@@ -34,7 +34,7 @@ uint8_t enqueue(QUEUE *queue, void *data, size_t dataSize);
  * @param queue Queue to perform operation on
  * @return void*
  */
-void *dequeue(QUEUE *queue);
+void *dequeue(Queue *queue);
 
 /**
  * @brief See what is at the top of the queue without removing it
@@ -42,7 +42,7 @@ void *dequeue(QUEUE *queue);
  * @param queue Queue to perform operation on
  * @return void*
  */
-void *peekQueue(QUEUE *queue);
+void *peekQueue(Queue *queue);
 
 /**
  * @brief Clean all data inside queue
@@ -50,7 +50,7 @@ void *peekQueue(QUEUE *queue);
  * @param queue Queue to perform operation on
  * @return uint8_t
  */
-uint8_t cleanQueue(QUEUE *queue);
+uint8_t cleanQueue(Queue *queue);
 
 /**
  * @brief Setup and initialize all data needed for queue
@@ -58,6 +58,6 @@ uint8_t cleanQueue(QUEUE *queue);
  * @param queue Queue to perform operation on
  * @return uint8_t
  */
-uint8_t setupQueue(QUEUE *queue);
+uint8_t setupQueue(Queue *queue);
 
 #endif

@@ -1,14 +1,14 @@
 #include <stdlib.h>
 #include <stdint.h>
-#include "stack.h"
-#include "linked_list.h"
+#include "STack.h"
+#include "LinkedList.h"
 
-uint8_t push(STACK *stack, void *data, size_t dataSize)
+uint8_t push(Stack *stack, void *data, size_t dataSize)
 // inserts value at the top of the stack
 {
     return stack->list->insert(stack->list, 0, data, dataSize);
 }
-void *pop(STACK *stack)
+void *pop(Stack *stack)
 {
     // pulls and remove value at pointer and freeing up space for new value
     void *data = stack->peekStack(stack);
@@ -20,13 +20,13 @@ void *pop(STACK *stack)
     return NULL;
 }
 
-void *peekStack(STACK *stack)
+void *peekStack(Stack *stack)
 {
     // peeks at the top of the stack and let user know what value is currently being held there
     return stack->list->getByIndex(stack->list, 0);
 }
 
-uint8_t cleanStack(STACK *stack)
+uint8_t cleanStack(Stack *stack)
 {
     // delete stack and allocate memory
     stack->list->clear(stack->list);
@@ -34,10 +34,10 @@ uint8_t cleanStack(STACK *stack)
     return EXIT_SUCCESS;
 }
 
-uint8_t setupStack(STACK *stack)
+uint8_t setupStack(Stack *stack)
 {
     // setup stack for general use
-    stack->list = (LINKED_LIST *)malloc(sizeof(LINKED_LIST));
+    stack->list = (LinkedList *)malloc(sizeof(LinkedList));
     setupLinkedList(stack->list);
 
     stack->push = push;

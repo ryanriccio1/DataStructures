@@ -2,7 +2,7 @@
 #include <float.h>
 #include <stdint.h>
 #include <math.h>
-#include "console_util.h"
+#include "ConsoleUtil.h"
 
 char *get_line_dynamic()
 {

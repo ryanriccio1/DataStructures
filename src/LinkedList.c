@@ -1,9 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "linked_list.h"
-#include "node.h"
+#include "LinkedList.h"
+#include "Node.h"
 
-void setLength(LINKED_LIST *list, size_t length)
+void setLength(LinkedList *list, size_t length)
 { // use setLength so isEmpty is always current
     list->length = length;
     if (length == 0)
@@ -16,13 +16,13 @@ void setLength(LINKED_LIST *list, size_t length)
     }
 }
 
-uint8_t insert(LINKED_LIST *list, size_t newPosition, void *newData, size_t dataSize)
+uint8_t insert(LinkedList *list, size_t newPosition, void *newData, size_t dataSize)
 { // make sure newPosition is in proper range (size_t dictates it cannot be negative)
     uint8_t ableToInsert = newPosition <= list->length;
     if (ableToInsert)
     {
         // Create a new node containing the new entry
-        NODE *newNodePtr = (NODE *)malloc(sizeof(NODE));
+        Node *newNodePtr = (Node *)malloc(sizeof(Node));
         setupNode(newNodePtr, newData, dataSize);
 
         // if we are inserting at the head or tail
@@ -56,8 +56,8 @@ uint8_t insert(LINKED_LIST *list, size_t newPosition, void *newData, size_t data
         // as long as we are not at the head of the list
         if (newPosition > 0)
         {
-            NODE *prevPtr = NULL;
-            NODE *nextPtr = NULL;
+            Node *prevPtr = NULL;
+            Node *nextPtr = NULL;
 
             // if there is no previous node, do nothing
             prevPtr = getNodeByIndex(list, newPosition - 1);
@@ -81,7 +81,7 @@ uint8_t insert(LINKED_LIST *list, size_t newPosition, void *newData, size_t data
 
     return !ableToInsert;
 }
-uint8_t insertBefore(LINKED_LIST *list, size_t index, void *newData, size_t dataSize)
+uint8_t insertBefore(LinkedList *list, size_t index, void *newData, size_t dataSize)
 {
     // make sure we are inserting before tail
     if (index < list->length)
@@ -90,7 +90,7 @@ uint8_t insertBefore(LINKED_LIST *list, size_t index, void *newData, size_t data
     }
     return EXIT_FAILURE;
 }
-uint8_t insertAfter(LINKED_LIST *list, size_t index, void *newData, size_t dataSize)
+uint8_t insertAfter(LinkedList *list, size_t index, void *newData, size_t dataSize)
 {
     // make sure we are only inserting within the range of the list
     if (index < list->length)
@@ -100,20 +100,20 @@ uint8_t insertAfter(LINKED_LIST *list, size_t index, void *newData, size_t dataS
     return EXIT_FAILURE;
 }
 
-uint8_t append(LINKED_LIST *list, void *newData, size_t dataSize)
+uint8_t append(LinkedList *list, void *newData, size_t dataSize)
 { // add data to end of list
     return insert(list, list->length, newData, dataSize);
 }
 
-uint8_t removeAtPosition(LINKED_LIST *list, size_t position, DeallocateFlag deallocatePointer)
+uint8_t removeAtPosition(LinkedList *list, size_t position, DeallocateFlag deallocatePointer)
 {
     // check to make sure position is within the length of the list
     uint8_t ableToRemove = position <= list->length;
     if (ableToRemove)
     {
-        NODE *curPtr = getNodeByIndex(list, position);
-        NODE *nextPtr = curPtr->next;
-        NODE *prevPtr = curPtr->prev;
+        Node *curPtr = getNodeByIndex(list, position);
+        Node *nextPtr = curPtr->next;
+        Node *prevPtr = curPtr->prev;
         // removes entry at head and making the next entry the new head
         if (position == 0)
         {
@@ -146,14 +146,14 @@ uint8_t removeAtPosition(LINKED_LIST *list, size_t position, DeallocateFlag deal
 
     return !ableToRemove;
 }
-uint8_t removeAtValue(LINKED_LIST *list, void *value, DeallocateFlag deallocatePointer)
+uint8_t removeAtValue(LinkedList *list, void *value, DeallocateFlag deallocatePointer)
 {
-    NODE *curPtr = NULL;
+    Node *curPtr = NULL;
     // search to see if our pointers match
     if ((curPtr = getNodeByValue(list, value)) != NULL)
     {
-        NODE *nextPtr = curPtr->next;
-        NODE *prevPtr = curPtr->prev;
+        Node *nextPtr = curPtr->next;
+        Node *prevPtr = curPtr->prev;
         // if we are removing the head, set the next head
         if (indexOf(list, value) == 0)
         {
@@ -187,14 +187,14 @@ uint8_t removeAtValue(LINKED_LIST *list, void *value, DeallocateFlag deallocateP
     return EXIT_FAILURE;
 }
 
-uint8_t clear(LINKED_LIST *list)
+uint8_t clear(LinkedList *list)
 { // clear/free all nodes and their associated data
-    NODE *curPtr = list->tail;
+    Node *curPtr = list->tail;
     for (size_t idx = 0; idx < list->length; idx++)
     {
         if (curPtr != NULL)
         {
-            NODE *rmPtr = curPtr;
+            Node *rmPtr = curPtr;
             curPtr = curPtr->prev;
             rmPtr->cleanup(rmPtr);
             free(rmPtr);
@@ -205,18 +205,18 @@ uint8_t clear(LINKED_LIST *list)
     list->setLength(list, 0);
     return EXIT_SUCCESS;
 }
-uint8_t contains(LINKED_LIST *list, void *data)
+uint8_t contains(LinkedList *list, void *data)
 { // check to see if a pointer exists in any of our nodes
     return getNodeByValue(list, data) != NULL ? 1 : 0;
 }
-uint8_t replace(LINKED_LIST *list, size_t position, void *data, size_t dataSize)
+uint8_t replace(LinkedList *list, size_t position, void *data, size_t dataSize)
 { // just swap out the data pointer at a given position
 
     // position must be an index (len - 1)
     uint8_t abletoReplace = position <= list->length - 1;
     if (abletoReplace)
     {
-        NODE *curPtr = getNodeByIndex(list, position);
+        Node *curPtr = getNodeByIndex(list, position);
         curPtr->dataSize = dataSize;
         curPtr->data = data;
         return EXIT_SUCCESS;
@@ -224,12 +224,12 @@ uint8_t replace(LINKED_LIST *list, size_t position, void *data, size_t dataSize)
     return EXIT_FAILURE;
 }
 
-NODE *getNodeByIndex(LINKED_LIST *list, size_t position)
+Node *getNodeByIndex(LinkedList *list, size_t position)
 { // iterate until our index == position
     uint8_t ableToGet = position <= list->length - 1;
     if (ableToGet)
     {
-        NODE *curPtr = list->head;
+        Node *curPtr = list->head;
         for (size_t skip = 0; skip < position; skip++)
         {
             curPtr = curPtr->next;
@@ -238,9 +238,9 @@ NODE *getNodeByIndex(LINKED_LIST *list, size_t position)
     }
     return NULL;
 }
-NODE *getNodeByValue(LINKED_LIST *list, void *value)
+Node *getNodeByValue(LinkedList *list, void *value)
 { // search to see if pointers are equivalent
-    NODE *curPtr = list->head;
+    Node *curPtr = list->head;
     for (size_t idx = 0; idx < list->length; idx++)
     {
         if (curPtr->data == value)
@@ -251,12 +251,12 @@ NODE *getNodeByValue(LINKED_LIST *list, void *value)
     }
     return curPtr;
 }
-void *getByIndex(LINKED_LIST *list, size_t position)
+void *getByIndex(LinkedList *list, size_t position)
 { // get the pointer to the data at a given position
     uint8_t ableToGet = position <= list->length - 1;
     if (ableToGet)
     { // traverse list
-        NODE *curPtr = list->head;
+        Node *curPtr = list->head;
         for (size_t idx = 0; idx < position; idx++)
         {
             curPtr = curPtr->next;
@@ -265,9 +265,9 @@ void *getByIndex(LINKED_LIST *list, size_t position)
     }
     return NULL;
 }
-size_t indexOf(LINKED_LIST *list, void *value)
+size_t indexOf(LinkedList *list, void *value)
 { // get the index of a entry based on its pointer
-    NODE *curPtr = list->head;
+    Node *curPtr = list->head;
     for (size_t idx = 0; idx < list->length; idx++)
     {
         if (value == curPtr->data)
@@ -279,69 +279,69 @@ size_t indexOf(LINKED_LIST *list, void *value)
     return (size_t)-1;
 }
 
-void printString(LINKED_LIST *list)
+void printString(LinkedList *list)
 { // print data as a string
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%s\n", idx, (char *)node->data);
     }
 }
-void printInt(LINKED_LIST *list)
+void printInt(LinkedList *list)
 { // print data as an int
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%d\n", idx, *(int32_t *)node->data);
     }
 }
-void printInt64(LINKED_LIST *list)
+void printInt64(LinkedList *list)
 { // print data as an int64_t
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%lld\n", idx, *(int64_t *)node->data);
     }
 }
-void printUint64(LINKED_LIST *list)
+void printUint64(LinkedList *list)
 { // print data as an uint64_t
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%lld\n", idx, *(uint64_t *)node->data);
     }
 }
-void printDouble(LINKED_LIST *list)
+void printDouble(LinkedList *list)
 { // print data as a double
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%F\n", idx, *(double *)node->data);
     }
 }
-void printPointer(LINKED_LIST *list)
+void printPointer(LinkedList *list)
 { // print data as an address
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        NODE *node = getNodeByIndex(list, idx);
+        Node *node = getNodeByIndex(list, idx);
         printf("[%lld]:\t%p\n", idx, node->data);
     }
 }
 
-void sortByAddress(LINKED_LIST *list)
+void sortByAddress(LinkedList *list)
 { // merge sort where we compare addresses
     list->head = mergeSort(list->head, PointerCompare);
 }
-void sortByValue(LINKED_LIST *list)
+void sortByValue(LinkedList *list)
 { // merge sort where we compare the value at the addresses (As int64_t)
     list->head = mergeSort(list->head, ValueCompare);
 }
-void sortBySize(LINKED_LIST *list)
+void sortBySize(LinkedList *list)
 { // merge sort where we use the size to compare
     list->head = mergeSort(list->head, SizeCompare);
 }
 
-NODE *merge(NODE *first, NODE *second, MergeSortComparison compareFunc)
+Node *merge(Node *first, Node *second, MergeSortComparison compareFunc)
 {
     // if we have reached a single side, return it to the sorter
     if (!first)
@@ -372,14 +372,14 @@ NODE *merge(NODE *first, NODE *second, MergeSortComparison compareFunc)
         return second;
     }
 }
-NODE *mergeSort(NODE *head, MergeSortComparison compareFunc)
+Node *mergeSort(Node *head, MergeSortComparison compareFunc)
 {
     // Once we run out of things to sort, return
     if (!head || !head->next)
     {
         return head;
     }
-    NODE *second = split(head);
+    Node *second = split(head);
 
     // recursively sort the two sides
     head = mergeSort(head, compareFunc);
@@ -388,10 +388,10 @@ NODE *mergeSort(NODE *head, MergeSortComparison compareFunc)
     // once the sides are sorted, merge the two (recursively as well)
     return merge(head, second, compareFunc);
 }
-NODE *split(NODE *head)
+Node *split(Node *head)
 {
-    NODE *A = head;
-    NODE *B = head;
+    Node *A = head;
+    Node *B = head;
     // A gets incremented twice as fast as B
     // As long as A->next->next is not null,
     // we haven't reached the middle yet
@@ -403,7 +403,7 @@ NODE *split(NODE *head)
     // Once we reach the middle, our new head is
     // the next item in the chain
     // (to prevent issues when there are odd amounts of data)
-    NODE *temp = B->next;
+    Node *temp = B->next;
     B->next = NULL; // unlink the nodes
     return temp;
 }
@@ -414,7 +414,7 @@ void swap(void *A, void *B)
     B = temp;
 }
 
-uint8_t setupLinkedList(LINKED_LIST *list)
+uint8_t setupLinkedList(LinkedList *list)
 { // initialize all the memory and link the struct funcs to actual funcs
     list->isEmpty = 1;
 

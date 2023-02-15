@@ -3,12 +3,12 @@
 #include <cstdint>
 extern "C"
 {
-#include "linked_list.h"
+#include "LinkedList.h"
 }
 
-LINKED_LIST *setupList()
+LinkedList *setupList()
 {
-    LINKED_LIST *list = (LINKED_LIST *)malloc(sizeof(LINKED_LIST));
+    LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
     setupLinkedList(list);
 
     for (size_t idx = 0; idx < 5; idx++)
@@ -22,7 +22,7 @@ LINKED_LIST *setupList()
 
 TEST(linked_list, setLength_withValidLength_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
     list->setLength(list, 6);
     EXPECT_EQ(list->length, (size_t)6);
     EXPECT_EQ(list->isEmpty, (size_t)0);
@@ -33,7 +33,7 @@ TEST(linked_list, setLength_withValidLength_returnsSuccess)
 
 TEST(linked_list, insert_atValidPosition_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -49,7 +49,7 @@ TEST(linked_list, insert_atValidPosition_returnsSuccess)
 }
 TEST(linked_list, insert_atInvalidPosition_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -61,7 +61,7 @@ TEST(linked_list, insert_atInvalidPosition_returnsFailure)
 }
 TEST(linked_list, insertBefore_atValidPosition_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data1 = (int *)malloc(sizeof(int));
     *data1 = 500;
@@ -80,7 +80,7 @@ TEST(linked_list, insertBefore_atValidPosition_returnsSuccess)
 }
 TEST(linked_list, insertBefore_atInvalidPosition_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data1 = (int *)malloc(sizeof(int));
     *data1 = 500;
@@ -93,7 +93,7 @@ TEST(linked_list, insertBefore_atInvalidPosition_returnsFailure)
 }
 TEST(linked_list, insertAfter_atValidPosition_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data1 = (int *)malloc(sizeof(int));
     *data1 = 500;
@@ -112,7 +112,7 @@ TEST(linked_list, insertAfter_atValidPosition_returnsSuccess)
 }
 TEST(linked_list, insertAfter_atInvalidPosition_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data1 = (int *)malloc(sizeof(int));
     *data1 = 500;
@@ -126,7 +126,7 @@ TEST(linked_list, insertAfter_atInvalidPosition_returnsFailure)
 
 TEST(linked_list, append_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data1 = (int *)malloc(sizeof(int));
     *data1 = 500;
@@ -142,7 +142,7 @@ TEST(linked_list, append_returnsSuccess)
 
 TEST(linked_list, removeAtPosition_atValidPosition_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     uint8_t result = list->removeAtPosition(list, 3, Deallocate);
 
@@ -155,7 +155,7 @@ TEST(linked_list, removeAtPosition_atValidPosition_returnsSuccess)
 }
 TEST(linked_list, removeAtPosition_atInvalidPosition_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     uint8_t result = list->removeAtPosition(list, 10, Deallocate);
 
@@ -168,7 +168,7 @@ TEST(linked_list, removeAtPosition_atInvalidPosition_returnsFailure)
 }
 TEST(linked_list, removeAtValue_withExistingValue_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 3);
 
@@ -183,7 +183,7 @@ TEST(linked_list, removeAtValue_withExistingValue_returnsSuccess)
 }
 TEST(linked_list, removeAtValue_withNonExistingValue_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 10);
 
@@ -199,7 +199,7 @@ TEST(linked_list, removeAtValue_withNonExistingValue_returnsFailure)
 
 TEST(linked_list, clear_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     uint8_t result = list->clear(list);
 
@@ -213,7 +213,7 @@ TEST(linked_list, clear_returnsSuccess)
 }
 TEST(linked_list, contains_withExistingValue_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 3);
     uint8_t listContains = list->contains(list, data);
@@ -225,7 +225,7 @@ TEST(linked_list, contains_withExistingValue_returnsSuccess)
 }
 TEST(linked_list, contains_withNonExistingValue_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 10);
     uint8_t listContains = list->contains(list, data);
@@ -237,7 +237,7 @@ TEST(linked_list, contains_withNonExistingValue_returnsFailure)
 }
 TEST(linked_list, replace_withValidPosition_returnsSuccess)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 300;
@@ -251,7 +251,7 @@ TEST(linked_list, replace_withValidPosition_returnsSuccess)
 }
 TEST(linked_list, replace_withInvalidPosition_returnsFailure)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 300;
@@ -266,9 +266,9 @@ TEST(linked_list, replace_withInvalidPosition_returnsFailure)
 
 TEST(linked_list, getNodeByIndex_atValidPosition_returnsNode)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
-    NODE *node = list->getNodeByIndex(list, 3);
+    Node *node = list->getNodeByIndex(list, 3);
 
     EXPECT_EQ(*(int *)node->data, 15);
 
@@ -277,21 +277,21 @@ TEST(linked_list, getNodeByIndex_atValidPosition_returnsNode)
 }
 TEST(linked_list, getNodeByIndex_atInvalidPosition_returnsNull)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
-    NODE *node = list->getNodeByIndex(list, 10);
+    Node *node = list->getNodeByIndex(list, 10);
 
-    EXPECT_EQ(node, (NODE *)NULL);
+    EXPECT_EQ(node, (Node *)NULL);
 
     list->clear(list);
     free(list);
 }
 TEST(linked_list, getNodeByValue_withExistingValue_returnsNode)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 3);
-    NODE *node = list->getNodeByValue(list, data);
+    Node *node = list->getNodeByValue(list, data);
 
     EXPECT_EQ(*(int *)node->data, 15);
 
@@ -300,19 +300,19 @@ TEST(linked_list, getNodeByValue_withExistingValue_returnsNode)
 }
 TEST(linked_list, getNodeByValue_withNonExistingValue_returnsNull)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 10);
-    NODE *node = list->getNodeByValue(list, data);
+    Node *node = list->getNodeByValue(list, data);
 
-    EXPECT_EQ(node, (NODE *)NULL);
+    EXPECT_EQ(node, (Node *)NULL);
 
     list->clear(list);
     free(list);
 }
 TEST(linked_list, getByIndex_withValidIndex_returnsPointer)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int data = *(int *)list->getByIndex(list, 3);
     EXPECT_EQ(data, 15);
@@ -322,7 +322,7 @@ TEST(linked_list, getByIndex_withValidIndex_returnsPointer)
 }
 TEST(linked_list, getByIndex_withInvalidIndex_returnsNull)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)list->getByIndex(list, 10);
     EXPECT_EQ(data, (int *)NULL);
@@ -332,7 +332,7 @@ TEST(linked_list, getByIndex_withInvalidIndex_returnsNull)
 }
 TEST(linked_list, indexOf_withExistingValue_returnsIndex)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 3);
     size_t index = list->indexOf(list, data);
@@ -344,7 +344,7 @@ TEST(linked_list, indexOf_withExistingValue_returnsIndex)
 }
 TEST(linked_list, indexOf_withNonExistingValue_returnsSentinel)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     void *data = list->getByIndex(list, 10);
     size_t index = list->indexOf(list, data);
@@ -357,7 +357,7 @@ TEST(linked_list, indexOf_withNonExistingValue_returnsSentinel)
 
 TEST(linked_list, sortByAddress_withValidInput_yieldsSortedList)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -376,7 +376,7 @@ TEST(linked_list, sortByAddress_withValidInput_yieldsSortedList)
 
 TEST(linked_list, sortBySize_withValidInput_yieldsSortedList)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -394,7 +394,7 @@ TEST(linked_list, sortBySize_withValidInput_yieldsSortedList)
 
 TEST(linked_list, sortByValue_withValidInput_yieldsSortedList)
 {
-    LINKED_LIST *list = setupList();
+    LinkedList *list = setupList();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;

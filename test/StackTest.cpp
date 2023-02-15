@@ -3,12 +3,12 @@
 #include <cstdint>
 extern "C"
 {
-#include "stack.h"
+#include "Stack.h"
 }
 
-STACK *setupStackTest()
+Stack *setupStackTest()
 {
-    STACK *stack = (STACK *)malloc(sizeof(STACK));
+    Stack *stack = (Stack *)malloc(sizeof(Stack));
     setupStack(stack);
 
     for (size_t idx = 0; idx < 5; idx++)
@@ -24,7 +24,7 @@ STACK *setupStackTest()
 TEST(stack, push_withValidData_returnsSuccess)
 {
     // test Push function of Stack
-    STACK *stack = setupStackTest();
+    Stack *stack = setupStackTest();
 
     int *data = (int *)malloc(sizeof(int));
     *data = 500;
@@ -40,7 +40,7 @@ TEST(stack, push_withValidData_returnsSuccess)
 TEST(stack, pop_withValidData_returnsData)
 {
     // testing Pop function of Stack
-    STACK *stack = setupStackTest();
+    Stack *stack = setupStackTest();
 
     int data1 = *(int *)stack->pop(stack);
     int data2 = *(int *)stack->pop(stack);
@@ -57,7 +57,7 @@ TEST(stack, pop_withValidData_returnsData)
 TEST(stack, peekStack_withValidData_returnsData)
 {
     // testing Peek Function of Stack
-    STACK *stack = setupStackTest();
+    Stack *stack = setupStackTest();
 
     int data = *(int *)stack->peekStack(stack);
     EXPECT_EQ(data, 20);
