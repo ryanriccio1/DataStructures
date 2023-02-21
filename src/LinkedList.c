@@ -1,10 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <errno.h>
 #include "LinkedList.h"
 #include "Node.h"
 
 void setLength(LinkedList *list, size_t length)
-{ // use setLength so isEmpty is always current
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return;
+    }
+    // use setLength so isEmpty is always current
     list->length = length;
     if (length == 0)
     {
@@ -17,7 +25,13 @@ void setLength(LinkedList *list, size_t length)
 }
 
 uint8_t insert(LinkedList *list, size_t newPosition, void *newData, size_t dataSize)
-{ // make sure newPosition is in proper range (size_t dictates it cannot be negative)
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // make sure newPosition is in proper range (size_t dictates it cannot be negative)
     uint8_t ableToInsert = newPosition <= list->length;
     if (ableToInsert)
     {
@@ -83,6 +97,11 @@ uint8_t insert(LinkedList *list, size_t newPosition, void *newData, size_t dataS
 }
 uint8_t insertBefore(LinkedList *list, size_t index, void *newData, size_t dataSize)
 {
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
     // make sure we are inserting before tail
     if (index < list->length)
     { // a normal insert should be the same as insertBefore
@@ -92,6 +111,11 @@ uint8_t insertBefore(LinkedList *list, size_t index, void *newData, size_t dataS
 }
 uint8_t insertAfter(LinkedList *list, size_t index, void *newData, size_t dataSize)
 {
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
     // make sure we are only inserting within the range of the list
     if (index < list->length)
     { // insert one index after current index
@@ -101,12 +125,23 @@ uint8_t insertAfter(LinkedList *list, size_t index, void *newData, size_t dataSi
 }
 
 uint8_t append(LinkedList *list, void *newData, size_t dataSize)
-{ // add data to end of list
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // add data to end of list
     return insert(list, list->length, newData, dataSize);
 }
 
 uint8_t removeAtPosition(LinkedList *list, size_t position, DeallocateFlag deallocatePointer)
 {
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
     // check to make sure position is within the length of the list
     uint8_t ableToRemove = position <= list->length;
     if (ableToRemove)
@@ -148,6 +183,11 @@ uint8_t removeAtPosition(LinkedList *list, size_t position, DeallocateFlag deall
 }
 uint8_t removeAtValue(LinkedList *list, void *value, DeallocateFlag deallocatePointer)
 {
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
     Node *curPtr = NULL;
     // search to see if our pointers match
     if ((curPtr = getNodeByValue(list, value)) != NULL)
@@ -188,7 +228,13 @@ uint8_t removeAtValue(LinkedList *list, void *value, DeallocateFlag deallocatePo
 }
 
 uint8_t clear(LinkedList *list)
-{ // clear/free all nodes and their associated data
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // clear/free all nodes and their associated data
     Node *curPtr = list->tail;
     for (size_t idx = 0; idx < list->length; idx++)
     {
@@ -206,17 +252,30 @@ uint8_t clear(LinkedList *list)
     return EXIT_SUCCESS;
 }
 uint8_t contains(LinkedList *list, void *data)
-{ // check to see if a pointer exists in any of our nodes
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // check to see if a pointer exists in any of our nodes
     return getNodeByValue(list, data) != NULL ? 1 : 0;
 }
 uint8_t replace(LinkedList *list, size_t position, void *data, size_t dataSize)
-{ // just swap out the data pointer at a given position
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // just swap out the data pointer at a given position
 
     // position must be an index (len - 1)
     uint8_t abletoReplace = position <= list->length - 1;
     if (abletoReplace)
     {
         Node *curPtr = getNodeByIndex(list, position);
+        free(curPtr->data);
         curPtr->dataSize = dataSize;
         curPtr->data = data;
         return EXIT_SUCCESS;
@@ -225,7 +284,13 @@ uint8_t replace(LinkedList *list, size_t position, void *data, size_t dataSize)
 }
 
 Node *getNodeByIndex(LinkedList *list, size_t position)
-{ // iterate until our index == position
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return NULL;
+    }
+    // iterate until our index == position
     uint8_t ableToGet = position <= list->length - 1;
     if (ableToGet)
     {
@@ -239,7 +304,13 @@ Node *getNodeByIndex(LinkedList *list, size_t position)
     return NULL;
 }
 Node *getNodeByValue(LinkedList *list, void *value)
-{ // search to see if pointers are equivalent
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return NULL;
+    }
+    // search to see if pointers are equivalent
     Node *curPtr = list->head;
     for (size_t idx = 0; idx < list->length; idx++)
     {
@@ -252,96 +323,122 @@ Node *getNodeByValue(LinkedList *list, void *value)
     return curPtr;
 }
 void *getByIndex(LinkedList *list, size_t position)
-{ // get the pointer to the data at a given position
-    uint8_t ableToGet = position <= list->length - 1;
-    if (ableToGet)
-    { // traverse list
-        Node *curPtr = list->head;
-        for (size_t idx = 0; idx < position; idx++)
-        {
-            curPtr = curPtr->next;
-        }
-        return curPtr->data;
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return NULL;
+    }
+    // get the pointer to the data at a given position
+    Node *node = getNodeByIndex(list, position);
+    if (node != NULL)
+    {
+        return node->data;
     }
     return NULL;
 }
 size_t indexOf(LinkedList *list, void *value)
-{ // get the index of a entry based on its pointer
-    Node *curPtr = list->head;
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return (size_t)-1;
+    }
+    // get the index of a entry based on its pointer
     for (size_t idx = 0; idx < list->length; idx++)
     {
-        if (value == curPtr->data)
+        if (value == getNodeByIndex(list, idx)->data)
         {
             return idx;
         }
-        curPtr = curPtr->next;
     }
-    return (size_t)-1;
+    return (size_t)-1; // document
 }
 
-void printString(LinkedList *list)
-{ // print data as a string
-    for (size_t idx = 0; idx < list->length; idx++)
+void print(LinkedList *list)
+{
+    if (list == NULL)
     {
-        Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%s\n", idx, (char *)node->data);
+        errno = 1;
+        return;
     }
-}
-void printInt(LinkedList *list)
-{ // print data as an int
     for (size_t idx = 0; idx < list->length; idx++)
     {
         Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%d\n", idx, *(int32_t *)node->data);
-    }
-}
-void printInt64(LinkedList *list)
-{ // print data as an int64_t
-    for (size_t idx = 0; idx < list->length; idx++)
-    {
-        Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%lld\n", idx, *(int64_t *)node->data);
-    }
-}
-void printUint64(LinkedList *list)
-{ // print data as an uint64_t
-    for (size_t idx = 0; idx < list->length; idx++)
-    {
-        Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%lld\n", idx, *(uint64_t *)node->data);
-    }
-}
-void printDouble(LinkedList *list)
-{ // print data as a double
-    for (size_t idx = 0; idx < list->length; idx++)
-    {
-        Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%F\n", idx, *(double *)node->data);
-    }
-}
-void printPointer(LinkedList *list)
-{ // print data as an address
-    for (size_t idx = 0; idx < list->length; idx++)
-    {
-        Node *node = getNodeByIndex(list, idx);
-        printf("[%lld]:\t%p\n", idx, node->data);
+        switch (list->dataType)
+        {
+        case String:
+            printf("[%lld]:\t%s\n", idx, (char *)node->data);
+            break;
+        case Int8:
+            printf("[%lld]:\t%d\n", idx, *(int8_t *)node->data);
+            break;
+        case Int16:
+            printf("[%lld]:\t%d\n", idx, *(int16_t *)node->data);
+            break;
+        case Int32:
+            printf("[%lld]:\t%d\n", idx, *(int32_t *)node->data);
+            break;
+        case Int64:
+            printf("[%lld]:\t%lld\n", idx, *(int64_t *)node->data);
+            break;
+        case Uint8:
+            printf("[%lld]:\t%u\n", idx, *(uint8_t *)node->data);
+            break;
+        case Uint16:
+            printf("[%lld]:\t%u\n", idx, *(uint16_t *)node->data);
+            break;
+        case Uint32:
+            printf("[%lld]:\t%u\n", idx, *(uint32_t *)node->data);
+            break;
+        case Uint64:
+            printf("[%lld]:\t%llu\n", idx, *(uint64_t *)node->data);
+            break;
+        case Double:
+            printf("[%lld]:\t%F\n", idx, *(double *)node->data);
+            break;
+        case Float:
+            printf("[%lld]:\t%F\n", idx, *(float *)node->data);
+            break;
+        case Pointer:
+            printf("[%lld]:\t%p\n", idx, node->data);
+            break;
+        }
     }
 }
 
 void sortByAddress(LinkedList *list)
-{ // merge sort where we compare addresses
-    list->head = mergeSort(list->head, PointerCompare);
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return;
+    }
+    // merge sort where we compare addresses
+    list->head = mergeSort(list, list->head, PointerCompare);
 }
 void sortByValue(LinkedList *list)
-{ // merge sort where we compare the value at the addresses (As int64_t)
-    list->head = mergeSort(list->head, ValueCompare);
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return;
+    }
+    // merge sort where we compare the value at the addresses (As int64_t)
+    list->head = mergeSort(list, list->head, ValueCompare);
 }
 void sortBySize(LinkedList *list)
-{ // merge sort where we use the size to compare
-    list->head = mergeSort(list->head, SizeCompare);
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return;
+    }
+    // merge sort where we use the size to compare
+    list->head = mergeSort(list, list->head, SizeCompare);
 }
 
-Node *merge(Node *first, Node *second, MergeSortComparison compareFunc)
+Node *merge(LinkedList *list, Node *first, Node *second, MergeSortComparison compareFunc)
 {
     // if we have reached a single side, return it to the sorter
     if (!first)
@@ -352,11 +449,11 @@ Node *merge(Node *first, Node *second, MergeSortComparison compareFunc)
 
     // if first < second (with multiple methods of comparing)
     if ((compareFunc == PointerCompare && first->data < second->data) ||
-        (compareFunc == ValueCompare && *(int64_t *)(first->data) < *(int64_t *)(second->data)) ||
+        (compareFunc == ValueCompare && compare(list->dataType, first->data, second->data) == 1) ||
         (compareFunc == SizeCompare && first->dataSize < second->dataSize))
     {
         // get the next node in the proper order recursively
-        first->next = merge(first->next, second, compareFunc);
+        first->next = merge(list, first->next, second, compareFunc);
         // link to the proper next node (doubly)
         first->next->prev = first;
         first->prev = NULL;
@@ -365,15 +462,15 @@ Node *merge(Node *first, Node *second, MergeSortComparison compareFunc)
     else
     {
         // get the next node that is greater than first recursively
-        second->next = merge(first, second->next, compareFunc);
+        second->next = merge(list, first, second->next, compareFunc);
         // link to proper node doubly
         second->next->prev = second;
         second->prev = NULL;
         return second;
     }
 }
-Node *mergeSort(Node *head, MergeSortComparison compareFunc)
-{
+Node *mergeSort(LinkedList *list, Node *head, MergeSortComparison compareFunc)
+{ // head of merge sort, not of list TODO
     // Once we run out of things to sort, return
     if (!head || !head->next)
     {
@@ -382,11 +479,11 @@ Node *mergeSort(Node *head, MergeSortComparison compareFunc)
     Node *second = split(head);
 
     // recursively sort the two sides
-    head = mergeSort(head, compareFunc);
-    second = mergeSort(second, compareFunc);
+    head = mergeSort(list, head, compareFunc);
+    second = mergeSort(list, second, compareFunc);
 
     // once the sides are sorted, merge the two (recursively as well)
-    return merge(head, second, compareFunc);
+    return merge(list, head, second, compareFunc);
 }
 Node *split(Node *head)
 {
@@ -413,13 +510,94 @@ void swap(void *A, void *B)
     A = B;
     B = temp;
 }
+uint8_t compare(DataType dataType, void *A, void *B)
+{
+    switch (dataType)
+    {
+    case String:
+        if (strcmp(A, B) < 0)
+        {
+            return 1;
+        }
+        return 0;
+    case Int8:
+        if (*(int8_t *)A < *(int8_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Int16:
+        if (*(int16_t *)A < *(int16_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Int32:
+        if (*(int32_t *)A < *(int32_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Int64:
+        if (*(int64_t *)A < *(int64_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Uint8:
+        if (*(uint8_t *)A < *(uint8_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Uint16:
+        if (*(uint16_t *)A < *(uint16_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Uint32:
+        if (*(uint32_t *)A < *(uint32_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Uint64:
+        if (*(uint64_t *)A < *(uint64_t *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Double:
+        if (*(double *)A < *(double *)B)
+        {
+            return 1;
+        }
+        return 0;
+    case Float:
+        if (*(float *)A < *(float *)B)
+        {
+            return 1;
+        }
+        return 0;
+    default:
+        return 0;
+    }
+}
 
-uint8_t setupLinkedList(LinkedList *list)
-{ // initialize all the memory and link the struct funcs to actual funcs
+uint8_t setupLinkedList(LinkedList *list, DataType dataType)
+{
+    if (list == NULL)
+    {
+        errno = 1;
+        return EXIT_FAILURE;
+    }
+    // initialize all the memory and link the struct funcs to actual funcs
     list->isEmpty = 1;
 
     list->head = NULL;
     list->tail = NULL;
+    list->dataType = dataType;
     list->length = 0;
 
     list->setLength = setLength;
@@ -442,12 +620,7 @@ uint8_t setupLinkedList(LinkedList *list)
     list->getByIndex = getByIndex;
     list->indexOf = indexOf;
 
-    list->printString = printString;
-    list->printInt = printInt;
-    list->printInt64 = printInt64;
-    list->printUint64 = printUint64;
-    list->printDouble = printDouble;
-    list->printPointer = printPointer;
+    list->print = print;
 
     list->sortByAddress = sortByAddress;
     list->sortByValue = sortByValue;

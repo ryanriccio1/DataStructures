@@ -9,7 +9,7 @@ extern "C"
 LinkedList *setupList()
 {
     LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
-    setupLinkedList(list);
+    setupLinkedList(list, Int32);
 
     for (size_t idx = 0; idx < 5; idx++)
     {

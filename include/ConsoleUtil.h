@@ -1,5 +1,4 @@
-#ifndef CONSOLE_UTIL_H
-#define CONSOLE_UTIL_H
+#pragma once
 
 #include <stdio.h>
 #include <stdint.h>
@@ -47,5 +46,3 @@ uint8_t string_to_double(char *buffer, double *result);
  * @return uint8_t
  */
 uint8_t string_to_float(char *buffer, float *result);
-
-#endif

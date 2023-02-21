@@ -47,7 +47,7 @@ Deallocate all nodes and all data in the nodes for the entire list. Reset the li
 
 `uint8_t contains(LinkedList *list, void *data);`
 <br>
-Check to see if a pointer exists in any of our nodes in the list. 
+Check to see if a pointer exists in any of our nodes in the list. Will return (size_t)-1 (64-bit INT_MAX) if value does not exist.
 
 `uint8_t replace(LinkedList *list, size_t position, void *data, size_t dataSize);`
 <br>
@@ -68,32 +68,11 @@ Get a pointer to the data located in a node at a specific index.
 
 `size_t indexOf(LinkedList *list, void *value);`
 <br>
-Get the index of the first instance of a specific pointer in a node in the list. 
+Get the index of the first instance of a specific pointer in a node in the list. Returns (size_t)-1 (64-bit INT_MAX) if value is not found.
 
-`void printString(LinkedList *list);`
+`void print(LinkedList *list);`
 <br>
-Print the data in the list as `char *`.
-
-`void printInt(LinkedList *list);`
-<br>
-Print the data in the list as 32-bit ints.
-
-`void printInt64(LinkedList *list);`
-<br>
-Print the data in the list as 64-bit ints.
-
-`void printUint64(LinkedList *list);`
-<br>
-Print the data in the list as 64-bit unsigned ints. 
-
-`void printDouble(LinkedList *list);`
-<br>
-Print the data in the list as doubles.
-
-`void printPointer(LinkedList *list);`
-<br>
-Print the address of the data in the list. 
-
+Print the data in the list.
 
 `void sortByAddress(LinkedList *list);`
 <br>
@@ -154,3 +133,36 @@ size_t dataSize;
 `uint8_t cleanup(Node *node);`
 <br>
 Will free the memory pointed to by the node.
+
+# Enums
+Enum definitions in 'LinkedList.h'
+```c
+typedef enum DeallocateFlag
+{
+    KeepAllocated,
+    Deallocate
+} DeallocateFlag;
+
+typedef enum MergeSortComparison
+{
+    PointerCompare,
+    ValueCompare,
+    SizeCompare
+} MergeSortComparison;
+
+typedef enum DataType
+{
+    String,
+    Int8,
+    Int16,
+    Int32,
+    Int64,
+    Uint8,
+    Uint16,
+    Uint32,
+    Uint64,
+    Double,
+    Float,
+    Pointer
+} DataType;
+```

@@ -9,7 +9,7 @@ extern "C"
 Stack *setupStackTest()
 {
     Stack *stack = (Stack *)malloc(sizeof(Stack));
-    setupStack(stack);
+    setupStack(stack, Int32);
 
     for (size_t idx = 0; idx < 5; idx++)
     {

@@ -1,5 +1,4 @@
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 #include <stdint.h>
 
 typedef struct Node
@@ -28,5 +27,3 @@ uint8_t setupNode(Node *node, void *newData, size_t dataSize);
  * @return uint8_t
  */
 uint8_t cleanup(Node *node);
-
-#endif

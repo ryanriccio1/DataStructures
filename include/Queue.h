@@ -1,5 +1,4 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#pragma once
 #include "LinkedList.h"
 #include <stdint.h>
 
@@ -56,8 +55,7 @@ uint8_t cleanQueue(Queue *queue);
  * @brief Setup and initialize all data needed for queue
  *
  * @param queue Queue to perform operation on
+ * @param dataType Type of data being stored in queue
  * @return uint8_t
  */
-uint8_t setupQueue(Queue *queue);
-
-#endif
+uint8_t setupQueue(Queue *queue, DataType dataType);

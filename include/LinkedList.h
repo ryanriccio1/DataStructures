@@ -1,5 +1,4 @@
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#pragma once
 #include <stdint.h>
 #include "Node.h"
 
@@ -16,6 +15,22 @@ typedef enum MergeSortComparison
     SizeCompare
 } MergeSortComparison;
 
+typedef enum DataType
+{
+    String,
+    Int8,
+    Int16,
+    Int32,
+    Int64,
+    Uint8,
+    Uint16,
+    Uint32,
+    Uint64,
+    Double,
+    Float,
+    Pointer
+} DataType;
+
 /**
  * @brief Linked list implementation
  *
@@ -26,6 +41,7 @@ typedef struct LinkedList
 
     Node *head;
     Node *tail;
+    DataType dataType;
     size_t length;
     void (*setLength)(struct LinkedList *list, size_t length);
 
@@ -47,12 +63,7 @@ typedef struct LinkedList
     void *(*getByIndex)(struct LinkedList *list, size_t position);
     size_t (*indexOf)(struct LinkedList *list, void *value);
 
-    void (*printString)(struct LinkedList *list);
-    void (*printInt)(struct LinkedList *list);
-    void (*printInt64)(struct LinkedList *list);
-    void (*printUint64)(struct LinkedList *list);
-    void (*printDouble)(struct LinkedList *list);
-    void (*printPointer)(struct LinkedList *list);
+    void (*print)(struct LinkedList *list);
 
     void (*sortByAddress)(struct LinkedList *list);
     void (*sortByValue)(struct LinkedList *list);
@@ -188,41 +199,11 @@ void *getByIndex(LinkedList *list, size_t position);
 size_t indexOf(LinkedList *list, void *value);
 
 /**
- * @brief Print list data formatted as string
+ * @brief Print list data
  *
  * @param list List to perform operation on
  */
-void printString(LinkedList *list);
-/**
- * @brief Print list data formatted as int
- *
- * @param list List to perform operation on
- */
-void printInt(LinkedList *list);
-/**
- * @brief Print list data formatted as int64_t
- *
- * @param list List to perform operation on
- */
-void printInt64(LinkedList *list);
-/**
- * @brief Print list data formatted as uint64_t
- *
- * @param list List to perform operation on
- */
-void printUint64(LinkedList *list);
-/**
- * @brief Print list data formatted as double
- *
- * @param list List to perform operation on
- */
-void printDouble(LinkedList *list);
-/**
- * @brief Print list data formatted as pointer
- *
- * @param list List to perform operation on
- */
-void printPointer(LinkedList *list);
+void print(LinkedList *list);
 
 /**
  * @brief Merge sort by address
@@ -251,7 +232,7 @@ void sortBySize(LinkedList *list);
  * @param compareFunc Type of comparison for merge
  * @return Node*
  */
-Node *merge(Node *first, Node *second, MergeSortComparison compareFunc);
+Node *merge(LinkedList *list, Node *first, Node *second, MergeSortComparison compareFunc);
 /**
  * @brief Recursive sorting algorithm
  *
@@ -259,7 +240,7 @@ Node *merge(Node *first, Node *second, MergeSortComparison compareFunc);
  * @param compareFunc Type of comparison for merge
  * @return Node*
  */
-Node *mergeSort(Node *head, MergeSortComparison compareFunc);
+Node *mergeSort(LinkedList *list, Node *head, MergeSortComparison compareFunc);
 /**
  * @brief Get the pointer to the middle node and unlink chain
  *
@@ -274,13 +255,20 @@ Node *split(Node *head);
  * @param B Second pointer
  */
 void swap(void *A, void *B);
+/**
+ * @brief Compare two items.
+ *
+ * @param dataType Data type of items to compare
+ * @param A Pointer of first item to compare
+ * @param B Pointer of second item to compare
+ */
+uint8_t compare(DataType dataType, void *A, void *B);
 
 /**
  * @brief Initialize memory at given list
  *
  * @param list List to setup
+ * @param dataType Type of data being stored in list
  * @return uint8_t
  */
-uint8_t setupLinkedList(LinkedList *list);
-
-#endif
+uint8_t setupLinkedList(LinkedList *list, DataType dataType);

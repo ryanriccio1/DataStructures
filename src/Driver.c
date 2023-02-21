@@ -6,11 +6,11 @@
 int main()
 {
     Stack *stack = (Stack *)malloc(sizeof(Stack));
-    setupStack(stack);
+    setupStack(stack, Int64);
 
     int64_t *data = (int64_t *)malloc(sizeof(int64_t));
     *data = 500;
     stack->push(stack, data, sizeof(int64_t));
 
-    stack->list->printInt64(stack->list);
+    stack->list->print(stack->list);
 }

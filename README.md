@@ -1,7 +1,21 @@
 # C DATA STRUCTURES
 
 ### This projects allows the utilization of doubly Linked List, Queue, and Stack Structures.
-
+## BUILDING
+Build using the makefile.<br>
+In the main directory:
+```
+make
+.\bin\test.exe
+```
+To build tests:
+```
+make tests
+```
+To clean up all build files:
+```
+make clean
+```
 ## LINKED LIST
 This library is a full implementation of a doubly linked list.<br>
 To create a new linked list:
@@ -9,7 +23,7 @@ To create a new linked list:
 #include "LinkedList.h"
 
 LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
-setupList(list);
+setupList(list, Int64);
 ```
 The data in the list should be dynamically allocated as well. The programmer can select whether the data is deallocated on removal from the list or not. 
 
@@ -20,7 +34,7 @@ To create a new stack:
 #include "Stack.h"
 
 Stack *stack = (Stack *)malloc(sizeof(Stack));
-setupStack(stack);
+setupStack(stack, Int64);
 ```
 Data being pushed on the stack should be dynamically allocated before being pushed on the stack. Data is not deallocated when it is popped off the stack.
 
@@ -31,7 +45,7 @@ To create a new queue:
 #include "Queue.h"
 
 Queue *queue = (Queue *)malloc(sizeof(Queue));
-setupQueue(queue);
+setupQueue(queue, Int64);
 ```
 The data in the queue should be dynamically allocated as well before being enqueued. Data is not deallocated when it is dequeued.
 
@@ -41,7 +55,7 @@ Both the stack and queue libraries allow the programmer to have access to the un
 
 For example:
 ```c
-queue->list->printInt(queue->list);
+queue->list->print(queue->list);
 ```
 
 ### TESTING

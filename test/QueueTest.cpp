@@ -9,7 +9,7 @@ extern "C"
 Queue *setupQueueTest()
 {
     Queue *queue = (Queue *)malloc(sizeof(Queue));
-    setupQueue(queue);
+    setupQueue(queue, Int32);
 
     for (size_t idx = 0; idx < 5; idx++)
     {

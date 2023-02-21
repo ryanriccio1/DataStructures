@@ -1,5 +1,4 @@
-#ifndef STACK_H
-#define STACK_H
+#pragma once
 #include "LinkedList.h"
 #include <stdint.h>
 
@@ -56,8 +55,7 @@ uint8_t cleanStack(Stack *stack);
  * @brief Setup and initialize all data needed for stack
  *
  * @param stack Stack to perform operation on
+ * @param dataType Type of data being stored in stack
  * @return uint8_t
  */
-uint8_t setupStack(Stack *stack);
-
-#endif
+uint8_t setupStack(Stack *stack, DataType dataType);
