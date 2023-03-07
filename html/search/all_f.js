@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['sections_0',['Sections',['../md__r_e_f_e_r_e_n_c_e.html',1,'']]],
+  ['setlength_1',['setLength',['../struct_linked_list.html#a90a1778352425a28d13412e08bfa6e0d',1,'LinkedList::setLength()'],['../_linked_list_8h.html#a3ea303d222a9110e940765d3d5de0bd6',1,'setLength(LinkedList *list, size_t length):&#160;LinkedList.c'],['../_linked_list_8c.html#a3ea303d222a9110e940765d3d5de0bd6',1,'setLength(LinkedList *list, size_t length):&#160;LinkedList.c']]],
+  ['setuplinkedlist_2',['setupLinkedList',['../_linked_list_8h.html#af98e305029735bea42a76e4fefd9a95d',1,'setupLinkedList(LinkedList *list, DataType dataType):&#160;LinkedList.c'],['../_linked_list_8c.html#af98e305029735bea42a76e4fefd9a95d',1,'setupLinkedList(LinkedList *list, DataType dataType):&#160;LinkedList.c']]],
+  ['setuplist_3',['setupList',['../_linked_list_test_8cpp.html#a61761eeb969c742a2d8fe26e815f7669',1,'LinkedListTest.cpp']]],
+  ['setupnode_4',['setupNode',['../_node_8h.html#afd8aeb2a082850e4eb3a349b5e42e3cf',1,'setupNode(Node *node, void *newData, size_t dataSize):&#160;Node.c'],['../_node_8c.html#afd8aeb2a082850e4eb3a349b5e42e3cf',1,'setupNode(Node *node, void *newData, size_t dataSize):&#160;Node.c']]],
+  ['setupqueue_5',['setupQueue',['../_queue_8c.html#ab0b7acc70dbae8aa4fcbd895d394a904',1,'setupQueue(Queue *queue, DataType dataType):&#160;Queue.c'],['../_queue_8h.html#ab0b7acc70dbae8aa4fcbd895d394a904',1,'setupQueue(Queue *queue, DataType dataType):&#160;Queue.c']]],
+  ['setupqueuetest_6',['setupQueueTest',['../_queue_test_8cpp.html#aee5fd39a0988ab392b290db02bdf1b68',1,'QueueTest.cpp']]],
+  ['setupstack_7',['setupStack',['../_stack_8h.html#ac9ef726e30b640d4d3d3104eab1902b7',1,'setupStack(Stack *stack, DataType dataType):&#160;Stack.c'],['../_stack_8c.html#ac9ef726e30b640d4d3d3104eab1902b7',1,'setupStack(Stack *stack, DataType dataType):&#160;Stack.c']]],
+  ['setupstacktest_8',['setupStackTest',['../_stack_test_8cpp.html#ad0fe7219a5720e775c6a75b30a3beae4',1,'StackTest.cpp']]],
+  ['sizecompare_9',['SizeCompare',['../_linked_list_8h.html#abd4ec242f611dfea60b57225d45a00a3ac15a2e194ca2b46b6c9575c2abd3b7ed',1,'LinkedList.h']]],
+  ['sortbyaddress_10',['sortByAddress',['../_linked_list_8h.html#af579f8aa5b3690fcfb5adf4b84624b86',1,'sortByAddress(LinkedList *list):&#160;LinkedList.c'],['../_linked_list_8c.html#af579f8aa5b3690fcfb5adf4b84624b86',1,'sortByAddress(LinkedList *list):&#160;LinkedList.c'],['../struct_linked_list.html#ad1bb4b07988198167a49ec1d880a4c24',1,'LinkedList::sortByAddress()']]],
+  ['sortbysize_11',['sortBySize',['../struct_linked_list.html#a7eec8d7c7bd78e64346699a4c7b87c90',1,'LinkedList::sortBySize()'],['../_linked_list_8h.html#af4dd61718a1e609aeacaeafb6e2075d1',1,'sortBySize(LinkedList *list):&#160;LinkedList.c'],['../_linked_list_8c.html#af4dd61718a1e609aeacaeafb6e2075d1',1,'sortBySize(LinkedList *list):&#160;LinkedList.c']]],
+  ['sortbyvalue_12',['sortByValue',['../struct_linked_list.html#ac631bf58c5f569b69e53430348538cf1',1,'LinkedList::sortByValue()'],['../_linked_list_8h.html#adcbe1713ac7878571b7ed64b28c2a993',1,'sortByValue(LinkedList *list):&#160;LinkedList.c'],['../_linked_list_8c.html#adcbe1713ac7878571b7ed64b28c2a993',1,'sortByValue(LinkedList *list):&#160;LinkedList.c']]],
+  ['split_13',['split',['../_linked_list_8h.html#a090e235ac1625e109344a81d1ebeecb1',1,'split(Node *head):&#160;LinkedList.c'],['../_linked_list_8c.html#a090e235ac1625e109344a81d1ebeecb1',1,'split(Node *head):&#160;LinkedList.c']]],
+  ['stack_14',['Stack',['../_stack_8h.html#acccdaeb94a63f3757825012007215c0d',1,'Stack():&#160;Stack.h'],['../struct_stack.html',1,'Stack']]],
+  ['stack_2ec_15',['Stack.c',['../_stack_8c.html',1,'']]],
+  ['stack_2eh_16',['Stack.h',['../_stack_8h.html',1,'']]],
+  ['stacktest_2ecpp_17',['StackTest.cpp',['../_stack_test_8cpp.html',1,'']]],
+  ['string_18',['String',['../_linked_list_8h.html#ad8ed01ff3ff33333d8e19db4d2818bb6ade17ec82ff106e0c2b4417f5ca231eae',1,'LinkedList.h']]],
+  ['string_5fto_5fdouble_19',['string_to_double',['../_console_util_8c.html#a33be1661f347443691cadf13e1dad80f',1,'string_to_double(char *buffer, double *result):&#160;ConsoleUtil.c'],['../_console_util_8h.html#a33be1661f347443691cadf13e1dad80f',1,'string_to_double(char *buffer, double *result):&#160;ConsoleUtil.c']]],
+  ['string_5fto_5ffloat_20',['string_to_float',['../_console_util_8h.html#a088c3bc44a69b73a95ea6a555a6d9c20',1,'string_to_float(char *buffer, float *result):&#160;ConsoleUtil.c'],['../_console_util_8c.html#a088c3bc44a69b73a95ea6a555a6d9c20',1,'string_to_float(char *buffer, float *result):&#160;ConsoleUtil.c']]],
+  ['string_5fto_5fint_21',['string_to_int',['../_console_util_8h.html#a76a84f1dc6acbdd6884e7153fba3e91b',1,'string_to_int(char *buffer, int32_t *result):&#160;ConsoleUtil.c'],['../_console_util_8c.html#a76a84f1dc6acbdd6884e7153fba3e91b',1,'string_to_int(char *buffer, int32_t *result):&#160;ConsoleUtil.c']]],
+  ['string_5fto_5flong_22',['string_to_long',['../_console_util_8h.html#aa0ea1a16c95707922a18c019accec8be',1,'string_to_long(char *buffer, int64_t *result):&#160;ConsoleUtil.c'],['../_console_util_8c.html#aa0ea1a16c95707922a18c019accec8be',1,'string_to_long(char *buffer, int64_t *result):&#160;ConsoleUtil.c']]],
+  ['swap_23',['swap',['../_linked_list_8h.html#aba5604fc538afbecf1df1fa338edfc68',1,'swap(void *A, void *B):&#160;LinkedList.c'],['../_linked_list_8c.html#aba5604fc538afbecf1df1fa338edfc68',1,'swap(void *A, void *B):&#160;LinkedList.c']]]
+];

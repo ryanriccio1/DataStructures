@@ -194,13 +194,14 @@ uint8_t removeAtValue(LinkedList *list, void *value, DeallocateFlag deallocatePo
     {
         Node *nextPtr = curPtr->next;
         Node *prevPtr = curPtr->prev;
+        size_t index = indexOf(list, value);
         // if we are removing the head, set the next head
-        if (indexOf(list, value) == 0)
+        if (index == 0)
         {
             list->head = nextPtr;
         }
         // if we are removing the tail, set the new tail
-        if (indexOf(list, value) == list->length - 1)
+        if (index == list->length - 1)
         {
             list->tail = prevPtr;
         }
