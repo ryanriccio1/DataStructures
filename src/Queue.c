@@ -1,25 +1,20 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
+
 #include "Queue.h"
 #include "LinkedList.h"
 
 uint8_t enqueue(Queue *queue, void *data, size_t dataSize)
 {
-    if (queue == NULL)
-    {
-        errno = 1;
-        return EXIT_FAILURE;
-    }
+    assert(queue);
     // add to end of queue
     return queue->list->append(queue->list, data, dataSize);
 }
 void *dequeue(Queue *queue)
 {
-    if (queue == NULL)
-    {
-        errno = 1;
-        return NULL;
-    }
+    assert(queue);
     // get the item on the top of the queue
     void *data = queue->peekQueue(queue);
 
@@ -32,22 +27,14 @@ void *dequeue(Queue *queue)
 }
 void *peekQueue(Queue *queue)
 {
-    if (queue == NULL)
-    {
-        errno = 1;
-        return NULL;
-    }
+    assert(queue);
     // get the item on the top of the queue without removing it
     return queue->list->getByIndex(queue->list, 0);
 }
 
 uint8_t cleanQueue(Queue *queue)
 {
-    if (queue == NULL)
-    {
-        errno = 1;
-        return EXIT_FAILURE;
-    }
+    assert(queue);
     // remove all the items in the queue
     queue->list->clear(queue->list);
     free(queue->list);
@@ -56,11 +43,7 @@ uint8_t cleanQueue(Queue *queue)
 
 uint8_t setupQueue(Queue *queue, DataType dataType)
 {
-    if (queue == NULL)
-    {
-        errno = 1;
-        return EXIT_FAILURE;
-    }
+    assert(queue);
     queue->list = (LinkedList *)malloc(sizeof(LinkedList));
     setupLinkedList(queue->list, dataType);
 

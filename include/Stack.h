@@ -1,6 +1,8 @@
 #pragma once
-#include "LinkedList.h"
 #include <stdint.h>
+#include <stddef.h>
+
+#include "LinkedList.h"
 
 /**
  * @brief Stack implementation

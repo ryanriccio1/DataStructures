@@ -1,14 +1,13 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
+
 #include "Node.h"
 
 uint8_t setupNode(Node *node, void *newData, size_t dataSize)
 {
-    if (node == NULL)
-    {
-        errno = 1;
-        return EXIT_FAILURE;
-    }
+    assert(node);
     node->next = NULL;
     node->prev = NULL;
     node->data = newData;
@@ -19,11 +18,7 @@ uint8_t setupNode(Node *node, void *newData, size_t dataSize)
 
 uint8_t cleanup(Node *node)
 {
-    if (node == NULL)
-    {
-        errno = 1;
-        return EXIT_FAILURE;
-    }
+    assert(node);
     free(node->data);
     return EXIT_SUCCESS;
 }
